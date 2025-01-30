@@ -3,18 +3,21 @@ const radioFilters = document.querySelectorAll("input[type = radio]");
 const nameFilter = document.querySelector(".name-filter");
 const pageBtns = document.querySelectorAll(".page-btn");
 const baseUrl = "http://localhost:3000/characters";
-const filterOptions = { name: "", status: "Alive", page: 1 };
+const filterOptions = { name: "", status: "Alive", page: 1, pageMax: 1 };
 
 loadCharacters();
 
 async function loadCharacters() {
   try {
-    let filterUrl = `?name_like=${filterOptions.name}&status=${filterOptions.status}`;
-    const response = await fetch(baseUrl + filterUrl);
+    let filterUrl = `?name_like=${filterOptions.name}&status=${filterOptions.status}&_page=${filterOptions.page}`;
+    const limitUrl = "&_limit=5";
+    const charactersCountResponse = await fetch(baseUrl + filterUrl);
+    const response = await fetch(baseUrl + filterUrl + limitUrl);
+    const charactersCount = await charactersCountResponse.json();
     const characters = await response.json();
 
-    console.log(characters);
     charactersContainer.textContent = "";
+    filterOptions.pageMax = Math.ceil(charactersCount.length / 5);
     characters.forEach((character) => {
       createCharPanel(character);
     });
