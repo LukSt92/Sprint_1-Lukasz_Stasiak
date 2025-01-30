@@ -1,5 +1,9 @@
 body {
   background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 p,
 input {
@@ -47,4 +51,25 @@ button {
   background-color: blue;
   border: none;
   border-radius: 4px;
+}
+.new-char-container {
+  background-color: aliceblue;
+  border-radius: 8px;
+  margin: 20px;
+  height: 350px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.new-char-container input,
+select {
+  width: 90%;
+  height: 30px;
+}
+.new-char-container button {
+  width: 90%;
+  margin-top: 40px;
 }
