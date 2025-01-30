@@ -1,5 +1,6 @@
 const charactersContainer = document.querySelector(".characters-container");
 const radioFilters = document.querySelectorAll("input[type = radio]");
+const nameFilter = document.querySelector(".name-filter");
 const baseUrl = "https://rickandmortyapi.com/api/character/";
 const filterOptions = { name: "", status: "alive", page: 1, pageMax: 1 };
 
@@ -43,3 +44,7 @@ radioFilters.forEach((radioBox) =>
     loadCharacters();
   })
 );
+nameFilter.addEventListener("keyup", (e) => {
+  filterOptions.name = e.target.value;
+  loadCharacters();
+});
