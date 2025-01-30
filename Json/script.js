@@ -34,13 +34,19 @@ function createCharPanel(character) {
   const charName = createElement("h3", "char-name");
   const charStatus = createElement("p", "char-status");
   const charSpecies = createElement("p", "char-species");
+  const deleteBtn = createElement("button", "delete-btn");
 
   charImg.src = character.image;
   charImg.alt = `${character.name} image`;
   charName.textContent = character.name;
   charStatus.textContent = `Status: ${character.status}`;
   charSpecies.textContent = `Gatunek: ${character.species}`;
-  charContainer.append(charImg, charName, charStatus, charSpecies);
+  deleteBtn.textContent = "Usuń postać";
+  deleteBtn.value = character.id;
+  deleteBtn.addEventListener("click", (e) => {
+    deleteCharPanel(e);
+  });
+  charContainer.append(charImg, charName, charStatus, charSpecies, deleteBtn);
   charactersContainer.append(charContainer);
 }
 
@@ -102,3 +108,14 @@ addNewCharBtn.addEventListener("click", () => {
   const newChar = createNewCharacterData();
   postNewCharacter(newChar);
 });
+
+function deleteCharPanel(e) {
+  deleteCharacterData(e.target.value);
+  loadCharacters();
+}
+
+async function deleteCharacterData(id) {
+  const response = await fetch(`http://localhost:3000/characters/${id}`, {
+    method: "DELETE",
+  });
+}
