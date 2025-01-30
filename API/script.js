@@ -4,6 +4,7 @@ loadCharacters();
 
 function createElement(tag, className) {
   const newElement = document.createElement(tag);
+
   newElement.className = className;
   return newElement;
 }
@@ -11,6 +12,7 @@ async function loadCharacters() {
   try {
     const response = await fetch("https://rickandmortyapi.com/api/character/");
     const characters = await response.json();
+
     characters.results.forEach((character) => {
       const charContainer = createElement("div", "char-container");
       const charImg = createElement("img", "char-img");
