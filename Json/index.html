@@ -1,0 +1,32 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sprint 1 API</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="filter-container">
+      <span>Filtry:</span>
+      <input class="name-filter" placeholder="Wyszukaj po nazwie..." />
+      <input
+        type="radio"
+        id="alive"
+        name="radio-filter"
+        value="Alive"
+        checked
+      />
+      <label for="alive">Żywy</label>
+      <input type="radio" id="dead" name="radio-filter" value="Dead" />
+      <label for="dead">Martwy</label>
+      <input type="radio" id="unknown" name="radio-filter" value="unknown" />
+      <label for="unknown">Nieznany</label>
+    </div>
+    <div class="characters-container"></div>
+    <div class="pag-btns-container">
+      <button class="page-btn" value="prev">Prev</button>
+      <button class="page-btn" value="next">Next</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
