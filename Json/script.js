@@ -2,6 +2,7 @@ const charactersContainer = document.querySelector(".characters-container");
 const radioFilters = document.querySelectorAll("input[type = radio]");
 const nameFilter = document.querySelector(".name-filter");
 const pageBtns = document.querySelectorAll(".page-btn");
+const addNewCharBtn = document.querySelector(".new-char-submit-btn");
 const baseUrl = "http://localhost:3000/characters";
 const filterOptions = { name: "", status: "Alive", page: 1, pageMax: 1 };
 
@@ -73,3 +74,31 @@ pageBtns.forEach((btn) =>
     loadCharacters();
   })
 );
+
+function createNewCharacterData() {
+  const nameInput = document.querySelector(".new-char-name");
+  const statusSelector = document.querySelector(".new-char-status");
+  const speciesInput = document.querySelector(".new-char-species");
+  const newChar = {
+    name: nameInput.value,
+    status: statusSelector.value,
+    species: speciesInput.value,
+    image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
+  };
+  return newChar;
+}
+async function postNewCharacter(newChar) {
+  const response = await fetch("http://localhost:3000/characters", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newChar),
+  });
+  const data = await response.json();
+}
+
+addNewCharBtn.addEventListener("click", () => {
+  const newChar = createNewCharacterData();
+  postNewCharacter(newChar);
+});
