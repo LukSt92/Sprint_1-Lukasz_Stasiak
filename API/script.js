@@ -37,7 +37,9 @@ async function loadCharacters() {
       charactersContainer.append(charContainer);
     });
   } catch (err) {
-    console.error("Error:", err);
+    console.error("Error: ", err);
+    charactersContainer.textContent =
+      "Nie znaleziono postaci spełniających kryteria wyszukiwania.";
   }
 }
 radioFilters.forEach((radioBox) =>
