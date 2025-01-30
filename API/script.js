@@ -1,4 +1,7 @@
 const charactersContainer = document.querySelector(".characters-container");
+const radioFilters = document.querySelectorAll("input[type = radio]");
+const baseUrl = "https://rickandmortyapi.com/api/character/";
+const filterOptions = { name: "", status: "alive", page: 1, pageMax: 1 };
 
 loadCharacters();
 
@@ -10,9 +13,11 @@ function createElement(tag, className) {
 }
 async function loadCharacters() {
   try {
-    const response = await fetch("https://rickandmortyapi.com/api/character/");
+    let filterUrl = `?page=${filterOptions.page}&name=${filterOptions.name}&status=${filterOptions.status}`;
+    const response = await fetch(baseUrl + filterUrl);
     const characters = await response.json();
 
+    charactersContainer.textContent = "";
     characters.results.forEach((character) => {
       const charContainer = createElement("div", "char-container");
       const charImg = createElement("img", "char-img");
@@ -21,6 +26,7 @@ async function loadCharacters() {
       const charSpecies = createElement("p", "char-species");
 
       charImg.src = character.image;
+      charImg.alt = `${character.name} image`;
       charName.textContent = character.name;
       charStatus.textContent = `Status: ${character.status}`;
       charSpecies.textContent = `Gatunek: ${character.species}`;
@@ -31,3 +37,9 @@ async function loadCharacters() {
     console.error("Error:", err);
   }
 }
+radioFilters.forEach((radioBox) =>
+  radioBox.addEventListener("change", (e) => {
+    filterOptions.status = e.target.value;
+    loadCharacters();
+  })
+);
